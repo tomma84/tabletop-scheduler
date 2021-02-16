@@ -3,11 +3,13 @@ from re import template
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import backref
+from jaraco.docker import is_docker # per sapere se siamo in un container e aprire run() al mondo
 import datetime
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
@@ -105,3 +107,9 @@ def disiscrivi(id):
             return render_template('disiscrivi.html', partecipazione=partecipazione)
     except:
         return redirect('/')
+
+if __name__ == "__main__":
+    if is_docker():
+        app.run(host='0.0.0.0')
+    else:
+        app.run()
