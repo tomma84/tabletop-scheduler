@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <br>
+        <h1>Benvenuto</h1>
+        <h3>Ecco le partite che sono in programma sul nostro gruppo</h3>
+        <br>
+        <br>
+
+        <div class="container">
+            {% for riga in eventi|batch(3) %}
+            <div class="row">
+                {% for evento in riga %}
+                <div class="col-sm-4 mb-5">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            {{ evento.gioco }}
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Partita a {{ evento.gioco }}</h5>
+                            <p class="card-text">La partita prevede un numero di posti pari a {{ evento.posti }}</p>
+                            <a href="/partecipa/{{ evento.id }}" class="btn btn-primary"> Partecipa </a>
+                        </div>
+
+                        {% if evento.partecipazioni %}
+                            <ul class="list-group list-group-flush">
+
+                            {% for partecipazione in evento.partecipazioni %}
+                                <li class="list-group-item">
+                                    {{ partecipazione.nome }} 
+                                    {% if partecipazione.nome_steam %}Steam: {{partecipazione.nome_steam}} {% endif %}
+                                    {% if partecipazione.nome_telegram %}Telegram: <a href="https://t.me/{{partecipazione.nome_telegram}}">{{partecipazione.nome_telegram}}</a> {{partecipazione.nome_telegram}} {% endif %}
+                                    - {{partecipazione.tipo}} <a href="/disiscrivi/{{ partecipazione.id }}" class="btn btn-link btn-sm"> Elimina </a>
+                                </li>
+                            {% endfor%}
+                            </ul>
+                        {% endif %}
+
+                        <div class="card-footer text-muted">
+                            {{ evento.data_ora.strftime('%d/%m/%Y')}} alle {{ evento.data_ora.strftime('%H:%M')}}
+                            <br>
+                            <br>
+                            <a href="/elimina/{{ evento.id }}" class="btn btn-secondary btn-sm"> Elimina </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor%}
+            </div>
+            {% endfor%}
+        </div>
+    </div>
+{% endblock %}

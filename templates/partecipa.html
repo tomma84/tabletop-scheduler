@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Inserisci i tuoi dati per partecipare alla partita di {{ evento.gioco }}</h1>
+        <h3>L'evento sarà il giorno {{ evento.data_ora.strftime('%d/%m/%Y')}} alle {{ evento.data_ora.strftime('%H:%M')}}</h3>
+        <form action="/partecipa/{{ evento.id }}" method="POST">
+            <div class="mb-3">
+              <label for="nome" class="form-label">Nome</label>
+              <input type="text" class="form-control" id="nome" name='nome' required>
+            </div>
+            <div class="mb-3">
+              <label for="nome_steam" class="form-label">Nome su Steam</label>
+              <input type="text" class="form-control" id="nome_steam" name='nome_steam'>
+            </div>
+            <div class="mb-3">
+                <label for="nome_telegram" class="form-label">Nome su Telegram</label>
+                <input type="text" class="form-control" id="nome_telegram" name='nome_telegram'>
+            </div>
+            <div class="mb-3">
+                <label for="tipo" class="form-label">Come intendi partecipare</label>
+                <select class="form-select" aria-label="Default select example" id="tipo" name="tipo" required>
+                    <option value="Giocatore">Giocatore</option>
+                    <option value="Spettatore">Spettatore</option>
+                    <option value="Interessato">Interessato</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Partecipa</button>
+        </form>
+    </div>
+{% endblock %}

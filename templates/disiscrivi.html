@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Confermi di voler eliminare la partecipazione di {{ partecipazione.nome }}</h1>
+        <br>
+        <form action="/disiscrivi/{{ partecipazione.id }}" method="POST">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="conferma" id="conferma" name="conferma">
+                <label class="form-check-label" for="conferma">
+                  Confermo
+                </label>
+              </div>
+              <br>
+            <button type="submit" class="btn btn-primary">Esegui</button>
+        </form>
+    </div>
+{% endblock %}

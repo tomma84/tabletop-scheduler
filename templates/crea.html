@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Crea un evento!</h1>
+        <form action="/crea" method="POST">
+            <div class="mb-3">
+                <label for="gioco" class="form-label">Gioco</label>
+                <input type="text" class="form-control" id="gioco" name='gioco' required>
+            </div>
+            <div class="mb-3">
+                <label for="posti" class="form-label">Posti</label>
+                <input type="number" class="form-control" id="posti" name='posti' min="1" step="1" required>
+            </div>
+            <div class="mb-3">
+                <label for="giorno" class="form-label">Giorno</label>
+                <input type="date" class="form-control" id="giorno" name="giorno" required>
+            </div>
+            <div class="mb-3">
+                <label for="ora" class="form-label">Ora</label>
+                <input type="time" class="form-control" id="ora" name="ora" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>   
+    </div>
+{% endblock %}
