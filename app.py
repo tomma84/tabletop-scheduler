@@ -38,7 +38,8 @@ def index():
             db.session.commit()
         eventi = Evento.query.all()
         return render_template('index.html', eventi = eventi)
-    except:
+    except Exception as e:
+        print (e)
         return redirect('/')
 
     
@@ -59,7 +60,8 @@ def crea():
             return redirect('/')
         else:
             return render_template('crea.html')
-    except:
+    except Exception as e:
+        print (e)
         return redirect('/')
 
 @app.route('/partecipa/<int:id>', methods=['POST', 'GET'])
@@ -77,7 +79,8 @@ def partecipa(id):
             return redirect('/')
         else:
             return render_template('partecipa.html', evento=evento)
-    except:
+    except Exception as e:
+        print (e)
         return redirect('/')
 
 @app.route('/elimina/<int:id>', methods=['POST', 'GET'])
@@ -91,7 +94,8 @@ def elimina(id):
             return redirect('/')
         else:
             return render_template('elimina.html', evento=evento)
-    except:
+    except Exception as e:
+        print (e)
         return redirect('/')
 
 @app.route('/disiscrivi/<int:id>', methods=['POST', 'GET'])
@@ -105,7 +109,8 @@ def disiscrivi(id):
             return redirect('/')
         else:
             return render_template('disiscrivi.html', partecipazione=partecipazione)
-    except:
+    except Exception as e:
+        print (e)
         return redirect('/')
 
 if __name__ == "__main__":
