@@ -5,9 +5,18 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import backref
 from jaraco.docker import is_docker # per sapere se siamo in un container e aprire run() al mondo
 import datetime
+import telegram
+import configparser
+
+#leggo le configurazioni dal file config.ini
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+# setup del bot telegram
+telegram_destination=config['Telegram']['GroupID']
+bot = telegram.Bot(token=config['Telegram']['BotToken'])
 
 app = Flask(__name__)
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -57,6 +66,8 @@ def crea():
             
             db.session.add(nuovo_evento)
             db.session.commit()
+            # invia
+            bot.send_message(chat_id=telegram_destination, text=f"È stata proposta una partita a {gioco} il {giorno} alle {ora}.")
             return redirect('/')
         else:
             return render_template('crea.html')
